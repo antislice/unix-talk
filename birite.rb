@@ -1,12 +1,13 @@
-#!/usr/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 require 'nokogiri'
+require 'open-uri'
 
 def icecream_list
 
-	doc = Nokogiri::HTML(open('icecream.html'))
-	puts doc
+	doc = Nokogiri::HTML(open('http://biritecreamery.com/icecream'))
+	doc.at('h3:contains("scoops")').next_element.css('li').map {|flavor_li| flavor_li.inner_text}
 
 end
 
-icecream_list
+puts icecream_list

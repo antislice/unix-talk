@@ -1,0 +1,135 @@
+1.  Write Test Scripts
+
+You will be writing a generalized testing script! This script should allow you
+to test any program that takes input and produces some text-represented output.
+The requirements are as follows.
+
+Say your script is called programTester, then we want to be able to make the
+following call:
+
+programTest <program_name> <input> <output_directory> <output_to_match>
+
+ Let’s spend some quality time with these parameters.
+
+ <program_name> should be the path to the program you will test
+ <input> will be a semi-colon delimited text-file where every delimited token is
+ the line of arguments you will pass the program being tested
+
+ <output_directory> will be where the output of the program is to be stored (for
+ now we assume all tested programs produce file output)
+
+ <output_to_match> is the directory of files which are the expected output of
+ the program
+
+ Examples are good.
+
+ programTest addTwoNumbers numbers numbersAdded goldenNumbers
+
+ Say ‘numbers’ has:
+ 1 2
+ 5 2
+
+ Then we expect that ‘programTest’ will make the following calls:
+ addTwoNumbers 1 2
+ addTwoNumbers 5 2
+
+ and that ‘addTwoNumbers’ will create two files 
+ numbersAdded/out1
+ numbersAdded/out2
+
+ Which you can compare against
+ goldenNumbers/out1
+ goldenNumbers/out2
+
+ which should have content of
+ out1: 3
+ out2: 7
+
+ Your final output should be of the form:
+ addTwoNumbers tested on values “1 2” produced 3 which was right 
+ addTwoNumbers tested on values “5 2” produced 9 which was wrong
+
+ If you finish this and number two early, try these cool extensions:
+
+ - Add some color to your output! Figure out how you can make text appear in
+   colored lettering to differentiate between different parts of output (e.g.
+   “right” should be green but “wrong” red)
+
+   - Add an option to specify that a program does not write to a file but rather
+     to standard out. 
+
+     - Tell the person what the expected output was
+
+     To help you test we will provide a program we wish for you to run. It is
+     called write-to-file and it will take, first, a number and then a file name
+     and write that number to the file specified by file name. write-to-file has
+     a problem, while write-to-file-correct works as expected. We have also
+     provided a script called generate-goldens which will take as input some
+     number and then write out to folder ‘goldens’ all the numbers [0, n-1] in
+     files names [0, n-1].txt. This should help you generate output to test
+     against. 
+
+     You can get the program here: http://stanford.edu/~emint/progToTest.tar
+
+     Hints:
+     - look at Python’s popen functionality 
+
+     2.  Write a Submit Script
+      
+      You should write a submit script that work as follows:
+      Execution
+      execute it by typing /some/path/to/a/script/submit <assignment-number>
+      Prompts
+      prompt me for my SUNet ID
+      prompt me for how my day is going.  
+      Making a Directory
+      make a new folder in a specified directory called
+      assignment-NUMBER-USERNAME
+      For instance, if it is assignment 3 and I am samking, and the script is at
+      /afs/ir/users/s/a/samking/cs1u/week5/submit.py, when I run it, it should
+      create a directory at
+      /afs/ir/users/s/a/samking/cs1u/week5/submissions/assignment-3-samking
+      Note that since the idea is having OTHER PEOPLE run the submit script in a
+      place that you know about, you need to make sure that the directory that
+      you specified allows other people to make new folders.
+      Copying Files
+      for each file in the current folder, copy it to the new folder
+
+
+      After you have the basic functionality completed, add the following
+      features
+      Error Checking
+      If they don't provide an assignment number, print out an error message.
+      check that my SUNet ID is the same as my current username.  If it doesn't,
+      print out an error message.
+      Limiting Files
+      Add a limit on the size of each file in the current folder.  That is,
+      don't copy a file that is greater than 10k
+      Add a limit on the extensions of each file in the current folder.  That
+      is, if they forgot to make clean, you still don't want to copy the .o
+      files, so you should only copy the .c and .h files.
+      Time
+      add a new file called sumbission-time to the new folder that contains the
+      time the script was run
+      Appending to a File
+      You should have one CSV (comma separated values) file that has everyone's
+      information. A CSV file is like a spreadsheet where every comma means a
+      new column and every new line means a new row.  
+      One person's submission goes on one row.  The three columns will be
+      assignment-number, name, and how-they're-doing.
+      If I am samking and I submit assignment 3 and I'm doing "extremely well!",
+      then there should be a new line in the file:
+      3,samking,extremely well!
+      You should append to this file on each submission so that I have
+      everyone's submissions.
+      Support Multiple Directories
+      If I submit the same assignment twice, it should make a different
+      directory.  Continuing the above example, it should make
+      assignment-3-samking-2 the second time, or assignment-3-samking-3 the
+      third time.
+
+
+      If you want other people to try running it, put it in a public directory
+      on your AFS space and give the world execute permissions (check out the
+      chmod video).  You probably will want to remove global permissions from it
+      eventually since other people could clog up your AFS space.

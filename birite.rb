@@ -1,8 +1,7 @@
-#!/usr/bin/env ruby -w
-
 require 'nokogiri'
 require 'open-uri'
 require 'optparse'
+# require_relative 'someotherfile' # if it's big enough you broke it down into multiple files, this is how you include them.
 
 @food_search_terms = ['scoop', 'sandwich', 'combo', 'sundae']
 
@@ -42,3 +41,4 @@ end.parse!
 
 # ARGV is all the stuff passed in
 puts list_icecream ARGV.first
+exit 0	# this is telling whatever ran the script that it finished successfully. use 'exit 1' to indicate an error.
